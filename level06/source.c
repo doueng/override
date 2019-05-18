@@ -54,7 +54,7 @@ int auth(char *name, uint32_t serial)
             hash += eax;
             i++;
         }
-        printf("((%u))\n", hash);
+        printf("serial == %u\n", hash);
         if (hash == serial)
             return 0;
     }
