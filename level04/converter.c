@@ -9,7 +9,7 @@ void main()
 
     printf("Input string: ");
     bzero(b, 100);
-    scanf("%100s", b);
+    scanf("%99s", b);
     new_line = 0;
     for (int i=strlen(b)-1; i>=0; i--)
     {
