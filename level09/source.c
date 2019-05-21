@@ -8,12 +8,11 @@ void secret_backdoor()
 
 void set_msg(char *arg)
 {
-    char b[0x80*4];
+    char b[0x400];
 
-    bzero(b, 0x80*4);
+    bzero(b, 0x400);
     puts(">: Msg @Unix-Dude");
     printf(">>: ");
-    // vararg // >: Msg @Unix-Dude\naaaaaaaaaaaaaaa\n----------\n
     strncpy(arg, b, fgets(b, 0x400, stdin));
 
 }
