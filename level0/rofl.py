@@ -1,3 +1,3 @@
 import struct
 
-print 5276 
+print 5276
