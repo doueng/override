@@ -1,3 +1,13 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+struct info {
+    size_t  size;
+    char    name[0x28];
+    char    msg[0x8c];
+};
+
 void secret_backdoor()
 {
     char b[0x80];
@@ -6,43 +16,43 @@ void secret_backdoor()
     system(b);
 }
 
-void set_msg(char *arg)
+void set_msg(struct info *info)
 {
     char b[0x400];
 
     bzero(b, 0x400);
     puts(">: Msg @Unix-Dude");
     printf(">>: ");
-    strncpy(arg, b, fgets(b, 0x400, stdin));
-
+    fgets(b, 0x400, stdin);
+    strncpy(info->msg, b, info->msg+0xb4);
 }
 
-void set_username()
+void set_username(struct info *info)
 {
     int     i;
     char    b[0x80];
 
+    bzero(b, 0x80);
     puts(">: Enter your username");
     printf(">>: ");
     fgets(b, 0x80, stdin);
     i = 0;
-    while (i < 0x28)
+    while (i <= 0x28 && b[i])
     {
+        info->name[i] = b[i];
         i++;
     }
-    printf(">: Welcome, %s", %b);
+    printf(">: Welcome, %s", info->name);
 }
 
 void handle_msg()
 {
-    int     n;
-    char    name[0x28];
-    char    msg[0x8c];
+    struct info info;
 
-    bzero(b, 0x28);
-    n = 0x8c;
-    set_username(name);
-    set_msg(msg);
+    bzero(info.name, 0x28);
+    info.size = 0x8c;
+    set_username(&info);
+    set_msg(&info);
     puts(">: Msg sent!");
 }
 
