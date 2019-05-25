@@ -8,7 +8,7 @@
 int main()
 {
     int pid;        // ac
-    int syscall;        // a8
+    int syscall;    // a8
     int *p2;        // a4
     int *stat_loc;  // 1c
     char b[0x80];
@@ -19,7 +19,6 @@ int main()
     *stat_loc = 0;
     if (pid == 0)
     {
-        // #define PR_SET_PDEATHSIG  1  /* Second arg is a signal */
         prctl(PR_SET_PDEATHSIG, SIGHUP);
         ptrace(PTRACE_TRACEME,0,0,0);
         puts("Give me some shellcode, k");

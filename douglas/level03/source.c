@@ -1,12 +1,3 @@
-/*
-clear_stdin
-get_unum
-prog_timeout
-decrypt
-test
-main
-*/
-
 void clear_stdin()
 {
     char n;
@@ -71,13 +62,13 @@ int test(uint32_t n, uint32_t cmpn)
 
 int main()
 {
-    uint32_t n;
+    int n;
 
     srand(time(0));
     puts("***********************************");
     puts("*               level03         **");
     puts("***********************************");
     printf("Password:");
-    scanf("%u", n);
+    scanf("%d", n);
     test(n, 0x1337d00d);
 }

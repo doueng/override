@@ -1,7 +1,7 @@
 import struct
 # while (i <= 0x28 && b[i])
 # is off by one so it overwrites the size.
-# strncpy(info->msg, b, info->msg+0xb4);
+# strncpy(info->msg, b, info->size);
 # then use the strncpy to copy the addr of
 # secret_backdoor to the main's return.
 

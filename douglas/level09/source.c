@@ -24,7 +24,7 @@ void set_msg(struct info *info)
     puts(">: Msg @Unix-Dude");
     printf(">>: ");
     fgets(b, 0x400, stdin);
-    strncpy(info->msg, b, info->msg+0xb4);
+    strncpy(info->msg, b, info->size);
 }
 
 void set_username(struct info *info)

