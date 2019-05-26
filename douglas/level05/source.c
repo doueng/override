@@ -13,4 +13,6 @@ int main()
             b[i] = b[i] ^ 0x20;
         i++;
     }
+	printf(b);
+	exit();
 }
