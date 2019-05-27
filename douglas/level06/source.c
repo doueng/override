@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdio.h>
+#include <sys/types.h>
 #include <sys/ptrace.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -16,7 +17,7 @@ int auth(char *name, uint32_t serial)
     uint64_t    edxeax;
     int64_t     iedxeax;
 
-    eax, edx, edxeax, iedxeax = 0;
+    eax = 0, edx = 0, edxeax = 0, iedxeax = 0;
     name[strcspn(name, "\n")] = 0;
     len = strnlen(name, 0x20);
     if (len > 5)

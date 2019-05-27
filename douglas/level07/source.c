@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
     bzero(buff, 0x64*4);
     memset(prog_name, 0, strlen(prog_name));
     memset(arg1, 0, strlen(arg1));
-	puts("----------------------------------------------------\nWelcome to wil's crappy number storage service!\n----------------------------------------------------\n Commands:\n\tstore - store a number into the data storage\n\tread  - read a number from the data storage\n\tquit  - exit the program\n----------------------------------------------------\n\twil has reserved some storage :>\n----------------------------------------------------\n");
+    puts("----------------------------------------------------\nWelcome to wil's crappy number storage service!\n----------------------------------------------------\n Commands:\n\tstore - store a number into the data storage\n\tread  - read a number from the data storage\n\tquit  - exit the program\n----------------------------------------------------\n\twil has reserved some storage :>\n----------------------------------------------------\n");
     while (1)
     {
         printf("Input command: ");
