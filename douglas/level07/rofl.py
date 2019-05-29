@@ -31,7 +31,7 @@ for i in range(num_nops):
 
 for i,v in enumerate(shell):
         print 'store'
-        print swap32(v)
+        print v
         print getIndex(i+noplen)
 
 print 'store'

