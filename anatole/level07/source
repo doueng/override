@@ -1,0 +1,100 @@
+
+unsigned int		get_unum(void)
+{
+	unsigned int	ret;
+
+	ret = 0;
+	fflush(stdout);
+	scanf("%u", ret);
+	return (ret);
+}
+
+int		store_number(unsigned int buf[0x64])
+{
+	unsigned int		nb = 0;
+	unsigned int		i = 0;
+
+	printf(" Number: ");
+	nb = get_unum();
+	printf(" Index: ");
+	i = get_unum();
+//	tmp = i - ((((unsigned int)(((double)i * (double)0xaaaaaaab) >> 32)) >> 1) * 3);
+	if (!(i % 3) || (nb >> 0x18) == 0xb7)
+	{
+		puts(" *** ERROR! ***");
+		puts("   This index is reserved for wil!");
+		puts(" *** ERROR! ***");
+		return (1);
+	}
+	buf + (i << 2) = nb;
+	return (0);
+}
+
+int		read_number(unsigned int buf[0x64])
+{
+	unsigned int		i;
+	unsigned int		*nb;
+
+	i = 0;
+	printf(" Index: ");
+	i = get_unum();
+	nb = buf (i << 2);
+	printf(" Number at data[%u] is %u\n", i, *nb);
+	return (0);
+}
+
+// SF : 0x1d0
+int		main(int argc, char **argv, char **envp)
+{
+	//					CANARY		// 0x1cc
+	char			input[0x14];	// 0x1b8
+	int				ret;			// 0x1b4
+	unsigned int	buf[0x64];		// 0x24
+	char			*arg = argv[0];	// 0x1c
+	char			*env = envp[0];	// 0x18
+
+	bzero(input, 0x14);
+	bzero(buf, 0x190);
+
+	while (*arg)
+	{
+		memset(*arg, 0, strlen(*arg));
+		++arg;
+	}
+	while (*env)
+	{
+		memset(*env, 0, strlen(*env));
+		++env;
+	}
+	puts("\
+----------------------------------------------------\
+  Welcome to wil's crappy number storage service!   \
+----------------------------------------------------\
+ Commands:                                          \
+    store - store a number into the data storage    \
+    read  - read a number from the data storage     \
+    quit  - exit the program                        \
+----------------------------------------------------\
+   wil has reserved some storage :>                 \
+----------------------------------------------------\
+");
+
+	while (1)
+	{
+		printf("Input command: ");
+		ret = 1;
+		fgets(input, 0x14, stdin);
+		input[strlen(input)] = 0;
+		if (!strncmp("store", input, 5))
+			ret = store_number(buf);
+		else if (!strncmp("read", input, 4))
+			ret = read_number(buf);
+		else if (!strncmp("quit", input, 4))
+			return (0);
+		if (!ret)
+			printf(" Completed %s command successfully\n", input);
+		else
+			printf(" Failed to do %s command\n", input);
+		bzero(input, 0x14);
+	}
+}

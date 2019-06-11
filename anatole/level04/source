@@ -1,0 +1,36 @@
+int		main(void)
+{
+    pid_t	pid;		// ac
+    long	syscall;	// a8
+	char	buf[0x80];	// b0
+    int		*stat;		// 1c
+
+	pid = fork();
+	bzero(buf, 0x80);
+	syscall = 0;
+	stat = NULL;
+	if (!pid)
+	{
+		prctl(PR_SET_PDEATHSIG, SIGHUP);
+		ptrace(PTRACE_TRACEME, 0, NULL, NULL);
+		puts("Give me some shellcode, k");
+		gets(buf);
+	}
+	else
+	{
+		while (syscall != 0xb)
+		{
+			wait(stat);
+			if (!WTERMSIG(*stat) || !WIFSTOPPED(*stat))
+			{
+				puts("child is exiting...");
+				return (0);
+			}
+			syscall = ptrace(PTRACE_PEEKUSER, pid, 0x2c, NULL);
+		}
+        puts("no exec() for you");
+        kill(pid, SIGKILL);
+	}
+	return (0);
+}
+
