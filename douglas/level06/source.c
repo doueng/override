@@ -10,14 +10,10 @@ int auth(char *name, uint32_t serial)
     int         len;  // 0xc
     uint32_t    hash; // 0x10
     int         i;    // 0x14
-
     uint32_t    eax;
-    uint32_t    ecx;
     uint32_t    edx;
-    uint64_t    edxeax;
-    int64_t     iedxeax;
 
-    eax = 0, edx = 0, edxeax = 0, iedxeax = 0;
+    eax = 0, edx = 0;
     name[strcspn(name, "\n")] = 0;
     len = strnlen(name, 0x20);
     if (len > 5)
@@ -35,24 +31,13 @@ int auth(char *name, uint32_t serial)
         {
             if (name[i] <= 0x1f)
                 return 1;
-            eax = name[i];
-            ecx = eax ^ hash;
-            edx = 0x88233b2b;
-            eax = ecx;
-            edxeax = (uint64_t)eax * (uint64_t)edx;
-            edx = edxeax >> 32;
-            eax = ecx;
-            eax = ecx;
+            eax = name[i] ^ hash;
+            edx = ((uint64_t)eax * 0x88233b2b) >> 32;
             eax -= edx;
             eax >>= 1;
             eax += edx;
             eax >>= 0xa;
-            iedxeax = (int64_t)eax * (int64_t)0x539;
-            eax = iedxeax & 0x00000000ffffffff;
-            edx = ecx;
-            edx -= eax;
-            eax = edx;
-            hash += eax;
+            hash += (name[i] ^ hash) - (eax * 0x539);
             i++;
         }
         printf("serial == %u\n", hash);

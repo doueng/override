@@ -36,7 +36,7 @@ int store_number(char *buff)
     num = get_unum();
     printf(" Index: ");
     index = get_unum();
-    if (0xb7 == (num >> 0x18))
+    if ((index % 3 == 0) || 0xb7 == (num >> 0x18))
     {
         puts(" *** ERROR! ***");
         puts("   This index is reserved for wil!");
