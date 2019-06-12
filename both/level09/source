@@ -10,10 +10,10 @@ char	*save;
 
 void	secret_backdoor(void)
 {
-    char buf[0x80];
+	char buf[0x80];
 
-    fgets(buf, 0x80, stdin);
-    system(buf);
+	fgets(buf, 0x80, stdin);
+	system(buf);
 }
 
 // SF : 0x410
@@ -25,7 +25,7 @@ void	set_msg(t_msg *msg)
 	puts(">: Msg @Unix-Dude");
 	printf(">>: ");
 	fgets(input, 0x400, stdin);
-	strncpy(msg->text, input, msg->len) // 
+	strncpy(msg->text, input, msg->len)
 }
 
 // SF : 0xa0

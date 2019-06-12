@@ -1,11 +1,24 @@
 
+void clear_stdin()
+{
+	char c;
+
+	c = 0;
+	while (0xa != (c = getchar()))
+	{
+		if (c == -1)
+			break ;
+	}
+}
+
 unsigned int		get_unum(void)
 {
 	unsigned int	ret;
 
 	ret = 0;
 	fflush(stdout);
-	scanf("%u", ret);
+	scanf("%u", &ret);
+	clear_stdin();
 	return (ret);
 }
 
@@ -26,20 +39,18 @@ int		store_number(unsigned int buf[0x64])
 		puts(" *** ERROR! ***");
 		return (1);
 	}
-	buf + (i << 2) = nb;
+	buf[i << 2] = nb;
 	return (0);
 }
 
 int		read_number(unsigned int buf[0x64])
 {
 	unsigned int		i;
-	unsigned int		*nb;
 
 	i = 0;
 	printf(" Index: ");
 	i = get_unum();
-	nb = buf (i << 2);
-	printf(" Number at data[%u] is %u\n", i, *nb);
+	printf(" Number at data[%u] is %u\n", i, buff[i << 2]);
 	return (0);
 }
 

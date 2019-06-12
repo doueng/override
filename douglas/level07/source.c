@@ -53,8 +53,7 @@ int read_number(char *buff)
 
     printf(" Index: ");
     index = get_unum();
-    index <<= 2;
-    printf(" Number at data[%u] is %u\n", index, buff[index]);
+    printf(" Number at data[%u] is %u\n", index, buff[index << 2]);
     return 0;
 }
 
