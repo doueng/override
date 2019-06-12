@@ -1,20 +1,12 @@
-
-/*#define __WIFSIGNALED(status) */
-/*(((signed char) (((status) & 0x7f) + 1) >> 1) > 0)*/
-/* Nonzero if STATUS indicates termination by a signal.  */
-
-/* If WIFSIGNALED(STATUS), the terminating signal.  */
-/*#define        __WTERMSIG(status)        ((status) & 0x7f)*/
 int main()
 {
     int pid;        // ac
     int syscall;    // a8
-    int *p2;        // a4
-    int *stat_loc;  // 1c
-    char b[0x80];
+    int *stat_loc;  // b0
+    char b[0x80];   // 1c
 
     pid = fork();
-    bzero(b, 0x20);
+    bzero(b, 0x80);
     syscall = 0;
     *stat_loc = 0;
     if (pid == 0)
@@ -29,7 +21,7 @@ int main()
         while (syscall != 0xb)
         {
             wait(stat_loc);
-            if (WTERMSIG(*stat_loc) || WIFSIGNALED(*stat_loc))
+            if (!WTERMSIG(*stat_loc) || !WIFSTOPPED(*stat_loc))
             {
                 puts("child is exiting...");
                 return 0;

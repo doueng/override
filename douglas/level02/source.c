@@ -9,8 +9,6 @@ int main()
     bzero(a, 96);
     bzero(file, 40);
     bzero(c, 96);
-    p1 = 0;
-    p2 = 0;
     fstream = fopen("/home/users/level03/.pass", "r");
     if (fstream == NULL)
     {

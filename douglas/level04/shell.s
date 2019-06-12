@@ -1,5 +1,3 @@
-section .text
-
 xor     eax, eax
 push    eax
 push    0x35306c65

@@ -2,6 +2,7 @@ char a_user_name[0x100];
 
 int verify_user_name()
 {
+	puts("verifying username....\n");
     return strncmp("dat_wil", a_user_name, 7);
 }
 
@@ -21,15 +22,15 @@ int main()
     printf("Enter Username: ");
     fgets(a_user_name, 0x100, stdin);
     ret = verify_user_name();
-    if (ret != 0)
+    if (ret)
     {
         puts("nope, incorrect username...\n");
         return 1;
     }
     puts("Enter Password: ");
     fgets(buff, 0x64, stdin);
-    verify_user_pass(buff);
-    if (ret != 0)
+    ret = verify_user_pass(buff);
+    if (ret)
     {
         puts("nope, incorrect password...\n");
         return 1;

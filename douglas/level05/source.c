@@ -14,5 +14,5 @@ int main()
         i++;
     }
 	printf(b);
-	exit();
+	exit(0);
 }

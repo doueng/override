@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+
+void	decrypt(int key)
+{
+	char	*cypher = "Q}|u`sfg~sf{}|a3";
+	int		cy_len;
+	int		i;
+
+	i = 0;
+	cy_len = strlen(cypher);
+	while (i < cy_len)
+	{
+		cypher[i] = (key ^ cypher[i]) & 0x000000ff;
+		++i;
+	}
+	if (!strncmp("Congratulations!", cypher, 17))
+		system("/bin/sh");
+	else
+		puts("\nInvalid Password");
+}
+
+void	test(int in, int start)
+{
+	int		tmp;
+
+	tmp = start - in;
+	if (start - in > 21)
+		decrypt(rand());
+	goto *(0x80489f0 + (tmp << 2));
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+	decrypt(tmp);
+	return ;
+}
+
+int		main(void)
+{
+	int		in;
+
+	srand(time(0));
+	puts("***********************************");
+	puts("*\t\tlevel03\t\t**");
+	puts("***********************************");
+	printf("Password:");
+	scanf("%d", &in);
+	test(in, 0x1337d00d);
+	return 0;
+}

@@ -4,18 +4,17 @@
 #include <stdint.h>
 #include <string.h>
 
-void decrypt(uint32_t n)
+void decrypt(uint32_t key)
 {
-    char        *s;
+    char        *s = "Q}|u`sfg~sf{}|a3";
     uint32_t    len;
     int         i;
 
-    s = strdup("Q}|u`sfg~sf{}|a3");
     len = strlen(s);
     i = 0;
     while (i < len)
     {
-        s[i] ^= n;
+        s[i] ^= key;
         i++;
     }
     (0 == strcmp(s, "Congratulations!"))

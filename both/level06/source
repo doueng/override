@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
+#include <sys/ptrace.h>
+
+// SF : 0x28
+int		auth(char login[0x20], uint32_t serial)
+{
+	size_t		len;	// bp - 0xc
+	size_t		val;	// bp - 0x10
+	size_t		i;		// bp - 0x14
+
+	login[strcspn(login, "\n")] = 0;
+	len = strnlen(login, 0x20);
+	if (len > 5)
+	{
+		if (ptrace(PTRACE_TRACEME, 0, 1, 0) != -1)
+		{
+			val = ((login[3] % 256) ^ 0x1337) + 0x5eeded;
+			uint32_t tmp;
+			i = 0;
+			while (i < len)
+			{
+				if (login[i] >= ' ')
+				{
+					tmp = (((uint64_t)(login[i] ^ val) * 0x88233b2b) >> 32);
+					val += (login[i] ^ val) - (((((val - tmp) >> 1) + tmp) >> 10) * 0x539);
+					++i;
+				}
+				else
+					return (1);
+			}
+			if (val == serial)
+			{
+				return (0);
+			}
+		}
+		else
+		{
+			puts("\033[32m.---------------------------.");
+			puts("\033[31m| !! TAMPERING DETECTED !!  |");
+			puts("\033[32m'---------------------------'");
+		}
+	}
+	return (1);
+}
+
+// SF : 0x50
+int		main(int argc, char **argv)
+{
+	//				CANARY				// 0x4c
+	char			login[0x20];		// 0x2c
+	unsigned int	serial;				// 0x28
+	char			*str = argv[0];		// 0x1c
+
+	puts("***********************************");
+	puts("*\t\tlevel06\t\t  *");
+	puts("***********************************");
+	printf("-> Enter Login:");
+	fgets(login, 0x20, stdin);
+
+	puts("***********************************");
+	puts("***** NEW ACCOUNT DETECTED ********");
+	puts("***********************************");
+	printf("-> Enter Serial:");
+	scanf("%u", &serial);
+
+	if (!auth(login, serial))
+	{
+		puts("Authenticated!");
+		system("/bin/sh");
+		return (0);
+	}
+	return (1);
+}

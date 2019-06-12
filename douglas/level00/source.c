@@ -14,5 +14,5 @@ int main()
         return 0;
     }
     puts("\nInvalid Password!");
-    return 1
+    return 1;
 }

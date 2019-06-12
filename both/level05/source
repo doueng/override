@@ -1,0 +1,20 @@
+
+// stack frame : 0x90
+int		main(void)
+{
+	int		i = 0;		// 0x8c
+	char	buf[0x64];	// 0x28
+
+	fgets(buf, 0x64, stdin);
+	val1 = 0;
+
+	i = 0;
+	while (i < strlen(buf))
+	{
+		if (buf[i] >= 'A' && buf[i] <= 'Z')	// [0x40 .. 0x5A]
+			buf[i] ^= 0x20;
+		++i;
+	}
+	printf(buf);
+	exit(0);
+}
