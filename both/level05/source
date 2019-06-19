@@ -12,7 +12,7 @@ int		main(void)
 	while (i < strlen(buf))
 	{
 		if (buf[i] >= 'A' && buf[i] <= 'Z')	// [0x40 .. 0x5A]
-			buf[i] ^= 0x20;
+			buf[i] ^= 0x20;					// toLower(buf[i])
 		++i;
 	}
 	printf(buf);
